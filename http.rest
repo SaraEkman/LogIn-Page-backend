@@ -1,0 +1,34 @@
+GET http://localhost:3000/user
+
+
+###
+GET http://localhost:3000/admin
+
+###
+POST http://localhost:3000/user/logIn
+Content-Type: application/json
+
+{
+    "userName": "a",
+    "passWord": "a",
+    "subscribe": true
+}
+
+###
+POST http://localhost:3000/user/create
+Content-Type: application/json
+
+{
+    "userName": "a",
+    "passWord": "a",
+    "subscribe": ""
+}
+
+###
+
+POST http://localhost:3000/user/newsLetter
+Content-Type: application/json
+
+{
+    "_id": "628beea78efbff4022264f70"
+}
