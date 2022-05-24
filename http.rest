@@ -9,9 +9,18 @@ POST http://localhost:3000/user/logIn
 Content-Type: application/json
 
 {
-    "userName": "a",
-    "passWord": "a",
-    "subscribe": true
+    "email": "sara@gmail.com",
+    "passWord": "sara",
+    "subscribe": ""
+}
+
+###
+PUT http://localhost:3000/user/update
+Content-Type: application/json
+
+{
+    "_id":"628ce16df795956d809b0c9c",
+    "subscribe": "true"
 }
 
 ###
@@ -19,16 +28,16 @@ POST http://localhost:3000/user/create
 Content-Type: application/json
 
 {
-    "userName": "a",
-    "passWord": "a",
+    "email": "sarita@gmail.com",
+    "passWord": "sarita",
     "subscribe": ""
 }
 
 ###
 
-POST http://localhost:3000/user/newsLetter
-Content-Type: application/json
+# POST http://localhost:3000/user/newsLetter
+# Content-Type: application/json
 
-{
-    "_id": "628beea78efbff4022264f70"
-}
+# {
+#     "_id": "628ce191f795956d809b0ca2"
+# }

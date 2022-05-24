@@ -12,25 +12,25 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/logIn', async (req, res) => {
-    let { userName, passWord, subscribe } = req.body;
-    console.log(userName, passWord);
+    let { email, passWord, subscribe } = req.body;
+    console.log(email, passWord);
 
-    if (userName === '' && passWord === '' || userName === '' || passWord === '') {
+    if (email === '' && passWord === '' || email === '' || passWord === '') {
         return res.status(200).json({ 'status': 'empty' });
     } else {
         let users = await UserModel.find();
         console.log(users);
-        let user = users.find((user) => userName === user.userName);
+        let user = users.find((user) => email === user.email);
         console.log(user);
         if (user) {
             const originPass = CryptoJs.AES.decrypt(user.passWord, "passWord").toString(CryptoJs.enc.Utf8);
             if (passWord == originPass) {
-                user.subscribe = subscribe
-                await user.save()
-                return res.json({ 'status': 'found user','_id':user._id });
+                user.subscribe = subscribe;
+                await user.save();
+                return res.json({ 'status': 'found user', '_id': user._id });
 
             } else {
-                return res.json({ 'status': 'password not found' }); 
+                return res.json({ 'status': 'password not found' });
             }
         } else {
             return res.json({ 'status': 'Not found user' });
@@ -38,51 +38,51 @@ router.post('/logIn', async (req, res) => {
     }
 });
 
+router.put('/update', async (req, res) => {
+    let { _id, subscribe } = req.body;
+    await UserModel.findByIdAndUpdate(_id, { subscribe });
+    res.send('update subscribe');
+});
+
 router.post('/create', async (req, res) => {
-    let { userName, passWord,subscribe } = req.body;
-    if (userName === '' && passWord === '' || userName === '' || passWord === '') {
+    let { email, passWord, subscribe } = req.body;
+    if (email === '' && passWord === '' || email === '' || passWord === '') {
         return res.status(200).json({ 'status': 'empty' });
     } else {
         let users = await UserModel.find();
-        let foundUser = users.find((user) => userName === user.userName);
+        let foundUser = users.find((user) => email === user.email);
         if (foundUser) {
-            const originPass = CryptoJs.AES.decrypt(foundUser.passWord, "passWord").toString(CryptoJs.enc.Utf8);
-            if (originPass == passWord) {
-                return res.json('user found already')
-            } else {
-                return res.json('user forgot password')
-            }
+            return res.json('user in use');
 
         } else {
             const encryptedPass = CryptoJs.AES.encrypt(passWord, "passWord").toString();
             if (subscribe == '') {
-                subscribe = false
-                const user = await UserModel.create({
-                    userName, passWord: encryptedPass, subscribe
+                subscribe = false;
+                await UserModel.create({
+                    email, passWord: encryptedPass, subscribe
                 });
             } else {
-                const user = await UserModel.create({
-                    userName, passWord: encryptedPass, subscribe
+                await UserModel.create({
+                    email, passWord: encryptedPass, subscribe
                 });
             }
-            
-           return res.json('new user created')  
+
+            return res.json('new user created');
         }
     }
 });
 
 
-router.post('/newsLetter', async (req, res) => {
-    const users = await UserModel.find();
-    const foundUser = users.find(user => user._id == req.body._id);
-    if (foundUser) {
-        foundUser.subscribe = !foundUser.subscribe
-        await UserModel.create(foundUser)
-        res.status(200).json({ 'status': 'ok' });
-    } else {
-        res.json({ 'status': 'not found' });
-    }
-    console.log(foundUser);
-});
+// router.post('/newsLetter', async (req, res) => {
+//     const users = await UserModel.find();
+//     const foundUser = users.find(user => user._id == req.body._id);
+//     if (foundUser) {
+//         foundUser.subscribe = !foundUser.subscribe;
+//         await UserModel.create(foundUser);
+//         return res.status(200).json({ 'status': 'ok' });
+//     } else {
+//         return res.json({ 'status': 'not found' });
+//     }
+// });
 
 module.exports = router;

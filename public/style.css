@@ -1,0 +1,12 @@
+body {
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin-top: 1em;
+    flex-wrap: wrap;
+}
