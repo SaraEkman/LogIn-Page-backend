@@ -6,10 +6,10 @@ const UserModel = require('../modules/user_model');
 router.use(cors());
 
 /* GET users listing. */
-router.get('/', async (req, res, next) => {
-    const users = await UserModel.find();
-    res.status(200).json(users);
-});
+// router.get('/', async (req, res, next) => {
+//     const users = await UserModel.find();
+//     res.status(200).json(users);
+// });
 
 router.post('/logIn', async (req, res) => {
     let { email, passWord, subscribe } = req.body;
