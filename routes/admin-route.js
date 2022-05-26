@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const UserModel = require('../modules/user_model');
 const adminName = 'admin';
-const adminPass = '000';
-const links = '<link rel="stylesheet" href="./style.css">'
+const adminPass = 'admin';
+router.use(express.static((__dirname, './public')));
+const links = `<link rel="stylesheet" href="./style.css">`
 
 router.post('/', (req, res) => {
+    
     if (adminName == req.body.adminName && adminPass == req.body.adminPass) {
         res.cookie('isLogged', 'ok');
         return res.redirect('/admin/showAllUsers');
@@ -28,23 +30,19 @@ router.get('/showAllUsers', async (req, res) => {
         });
 
         if (foundUsersSu && foundUsersUn) {
-            printHtml = `<h1>Användarna som är presumerade i mitt nyhetsbrev</h1>`;
+            printHtml = `<h1>Användarna som prenumerera</h1>`;
             foundUsersSu.forEach(user => {
-                printHtml += `<div>
-                    <h2>email: ${user.email}</h2>
-                 </div>`;
+                printHtml += `<h2>${user.email}</h2>`;
             });
        
             printHtml += `<h1>Användarna som inte prenumerera</h1 >`;
             foundUsersUn.forEach(user => {
-                printHtml += `<div>
-                <h2>UserName: ${user.email}</h2>
-                </div>`;
+                printHtml += `<h2>${user.email}</h2>`;
             });
 
-            return res.send(printHtml+ links);
+            return res.send(printHtml + links);
         } else {
-            return res.send('<h1>Inga användare att vissa 😰</h1>'+ links)
+            return res.send('<h1>Inga användare att vissa 😰</h1>' + links)
         }
     }
 });

@@ -15,7 +15,7 @@ router.post('/logIn', async (req, res) => {
     let { email, passWord, subscribe } = req.body;
     console.log(email, passWord);
 
-    if (email === '' && passWord === '' || email === '' || passWord === '') {
+    if (email === undefined && passWord === undefined || email === undefined || passWord === undefined) {
         return res.status(200).json({ 'status': 'empty' });
     } else {
         let users = await UserModel.find();
@@ -41,12 +41,16 @@ router.post('/logIn', async (req, res) => {
 router.put('/update', async (req, res) => {
     let { _id, subscribe } = req.body;
     await UserModel.findByIdAndUpdate(_id, { subscribe });
-    res.send('update subscribe');
+    if (subscribe) {
+        res.json('update subscribe to true');    
+    } else {
+        res.json('update subscribe to false')
+    }
 });
 
 router.post('/create', async (req, res) => {
     let { email, passWord, subscribe } = req.body;
-    if (email === '' && passWord === '' || email === '' || passWord === '') {
+    if (email === undefined && passWord === undefined || email === undefined || passWord === undefined) {
         return res.status(200).json({ 'status': 'empty' });
     } else {
         let users = await UserModel.find();
@@ -71,18 +75,5 @@ router.post('/create', async (req, res) => {
         }
     }
 });
-
-
-// router.post('/newsLetter', async (req, res) => {
-//     const users = await UserModel.find();
-//     const foundUser = users.find(user => user._id == req.body._id);
-//     if (foundUser) {
-//         foundUser.subscribe = !foundUser.subscribe;
-//         await UserModel.create(foundUser);
-//         return res.status(200).json({ 'status': 'ok' });
-//     } else {
-//         return res.json({ 'status': 'not found' });
-//     }
-// });
 
 module.exports = router;

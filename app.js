@@ -1,4 +1,5 @@
 const express = require('express');
+var path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 let host = '0.0.0.0';
@@ -14,7 +15,7 @@ app.use(cors());
 app.use(logger('dev'))
 
 app.use(express.json());
-app.use(express.static('./public'));
+app.use(express.static(path.join(__dirname, './public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use('/user', userRouter);
