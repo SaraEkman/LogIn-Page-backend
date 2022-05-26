@@ -40,10 +40,12 @@ router.get('/showAllUsers', async (req, res) => {
                 printHtml += `<h2>${user.email}</h2>`;
             });
 
-            return res.send(printHtml + links);
+            return res.send(printHtml + links + '<button class="Logga ut"><a href="/">Logga ut</a></button>');
         } else {
-            return res.send('<h1>Inga användare att vissa 😰</h1>' + links)
+            return res.send('<h1>Inga användare att visa 😰</h1>' + links)
         }
+    } else {
+        return res.redirect('/');
     }
 });
 

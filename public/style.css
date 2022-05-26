@@ -45,3 +45,7 @@ h1 {
  color: #ff3e00;
   margin-top: 40px;
 }
+
+a {
+  text-decoration: none;
+}
