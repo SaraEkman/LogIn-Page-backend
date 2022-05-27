@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,19 +9,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
     <title>Admin</title>
 </head>
+
 <body>
     <h1>Välkommen till Admin sida</h1>
 
     <form action="admin" method="post">
         <label for="admin">Admin Namn</label>
-        <input id="admin" type="text" name="adminName">
+        <input id="admin" type="text" name="adminName" value="">
         <label for="password">Admin lösenord</label>
-        <input id="password" type="password" name="adminPass">
+        <input id="password" type="password" name="adminPass" autocomplete="off" value="">
         <button type="submit">Logga In</button>
     </form>
 </body>
+
 </html>

@@ -7,12 +7,12 @@ router.use(express.static((__dirname, './public')));
 const links = `<link rel="stylesheet" href="./style.css">`
 
 router.post('/', (req, res) => {
-    
     if (adminName == req.body.adminName && adminPass == req.body.adminPass) {
         res.cookie('isLogged', 'ok');
         return res.redirect('/admin/showAllUsers');
 
     } else {
+        
         return res.redirect('/');
     }
 });
@@ -40,7 +40,7 @@ router.get('/showAllUsers', async (req, res) => {
                 printHtml += `<h2>${user.email}</h2>`;
             });
 
-            return res.send(printHtml + links + '<button class="Logga ut"><a href="/">Logga ut</a></button>');
+            return res.send(printHtml + links + '<button class="Logout"><a href="/admin/logOut">Logga ut</a></button>');
         } else {
             return res.send('<h1>Inga användare att visa 😰</h1>' + links)
         }
@@ -48,6 +48,11 @@ router.get('/showAllUsers', async (req, res) => {
         return res.redirect('/');
     }
 });
+
+router.get('/logOut', (req, res) => {
+    res.clearCookie('isLogged');
+    return res.redirect('/');
+})
 
 
 
