@@ -5,4 +5,4 @@
 
 ### Login to admin page using Admin Namn = admin, Admin lösenord = admin
 
-### Link to frontend repository https://github.com/SaraEkman/LogIn-Page-Frontend-Svelte
+### Link to the frontend repository https://github.com/SaraEkman/LogIn-Page-Frontend-Svelte
